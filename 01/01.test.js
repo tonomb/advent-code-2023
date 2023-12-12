@@ -1,5 +1,10 @@
-const sum = require("./1");
+const calibrateCoordinates = require("./1");
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(sum(1, 2)).toBe(3);
+const calibrationData = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
+
+test("Calibration value Mock Data", () => {
+  expect(calibrateCoordinates(calibrationData)).toBe(142);
+});
+test("Calibration value Real Data", () => {
+  expect(calibrateCoordinates(calibrationData)).toBe(54697);
 });
