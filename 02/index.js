@@ -6,7 +6,9 @@ fs.readFile("02/data.txt", "utf-8", (error, data) => {
   } else {
     const cleanData = cleanInputData(data);
     const total = checkPossibleGames(cleanData);
+    const power = minimumSetOfCubes(cleanData);
     console.log(`The Sum of the Ids is: ${total}`);
+    console.log(`The Power is : ${power}`);
   }
 });
 
@@ -46,6 +48,43 @@ function checkPossibleGames(inputData) {
   return totalInput;
 }
 
+function minimumSetOfCubes(inputData) {
+  let totalInput = 0;
+
+  inputData.forEach((game) => {
+    gameRoundNumber = game.split(":")[0].split(" ")[1];
+    gameRoundSets = game.split(":")[1];
+    gameSets = gameRoundSets.split(";");
+
+    let minimumBlue = 0;
+    let minimumRed = 0;
+    let minimumGreen = 0;
+
+    gameSets.forEach((roundPlayed) => {
+      const roundPlayedObject = createRoundObject(roundPlayed);
+
+      if (roundPlayedObject.blue) {
+        if (minimumBlue < roundPlayedObject.blue) {
+          minimumBlue = roundPlayedObject.blue;
+        }
+      }
+      if (roundPlayedObject.red) {
+        if (minimumRed < roundPlayedObject.red) {
+          minimumRed = roundPlayedObject.red;
+        }
+      }
+      if (roundPlayedObject.green) {
+        if (minimumGreen < roundPlayedObject.green) {
+          minimumGreen = roundPlayedObject.green;
+        }
+      }
+    });
+    let powerOfNumbers = minimumBlue * minimumGreen * minimumRed;
+    totalInput += powerOfNumbers;
+  });
+  return totalInput;
+}
+
 function cleanInputData(inputData) {
   const cleanData = inputData.split("\n");
   return cleanData;
@@ -77,4 +116,4 @@ function createRoundObject(roundInput) {
   return roundObject;
 }
 
-module.exports = { checkPossibleGames, cleanInputData };
+module.exports = { checkPossibleGames, cleanInputData, minimumSetOfCubes };
