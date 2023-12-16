@@ -10,6 +10,6 @@ describe("03 Game Tests", () => {
   });
 
   test("Check Schematic", () => {
-    expect(checkEngineSchematic(data)).toBe(true);
+    expect(checkEngineSchematic(data)).toBe(4361);
   });
 });
